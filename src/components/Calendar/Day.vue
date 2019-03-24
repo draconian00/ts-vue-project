@@ -27,7 +27,6 @@ export default class Day extends Vue {
     if (this.day.isLastMonth || this.day.isNextMonth) {
       return;
     }
-    console.log(this.$selectedDay);
     this.$selectedDay.isSelected = false;
     this.isSelected = true;
     Vue.prototype.$selectedDay = this;
