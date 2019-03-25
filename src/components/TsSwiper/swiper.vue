@@ -110,13 +110,13 @@ export default class swiper extends Vue {
       this.swiper.pagination && this.swiper.pagination.render()
       this.swiper.pagination && this.swiper.pagination.update()
     }
-  };
+  }
   mountInstance() {
     const swiperOptions = Object.assign({}, this.globalOptions, this.options)
     this.swiper = new Swiper(<SelectableElement>this.$el, swiperOptions)
     this.bindEvents()
     this.$emit('ready', this.swiper)
-  };
+  }
   bindEvents() {
     const vm = this
     DEFAULT_EVENTS.forEach(eventName => {
@@ -124,37 +124,39 @@ export default class swiper extends Vue {
         vm.$emit(eventName, ...arguments)
         vm.$emit(eventName.replace(/([A-Z])/g, '-$1').toLowerCase(), ...arguments)
       })
-    })
-  };
+    });
+  }
   
 
   // life cycle hooks
-  ready() {
+  private ready() {
     if (!this.swiper) {
       this.mountInstance()
     }
   }
-  mounted() {
+  private mounted() {
     if (!this.swiper) {
       let setClassName = false
       for(const className in this.classes) {
         if (this.classes.hasOwnProperty(className)) {
-          if (this.options[className]) {
-            setClassName = true
-            this.classes[className] = this.options[className]
-          }
+          // console.log(this.options[className]);
+          // if (this.options[className]) {
+            
+          //   setClassName = true
+          //   this.classes[className] = this.options[className]
+          // }
         }
       }
       setClassName ? this.$nextTick(this.mountInstance) : this.mountInstance()
     }
   }
-  activated() {
+  private activated() {
     this.swiperUpdate()
   }
-  updated() {
+  private updated() {
     this.swiperUpdate()
   }
-  beforeDestroy() {
+  private beforeDestroy() {
     this.$nextTick(function() {
       if (this.swiper) {
         this.swiper.destroy && this.swiper.destroy(true, true);

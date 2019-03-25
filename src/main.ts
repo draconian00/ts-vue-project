@@ -24,7 +24,7 @@ declare module 'vue/types/vue' {
   }
 }
 
-// Vue.use(VueTsSwiper);
+Vue.use(VueTsSwiper);
 
 new Vue({
   router,

@@ -1,5 +1,13 @@
 <template>
   <div class="test-view">
+    <swiper ref="testSwiper" >
+      <swiper-slide>
+        <p>1</p>
+      </swiper-slide>
+      <swiper-slide>
+        <p>2</p>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 

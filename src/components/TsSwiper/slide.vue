@@ -15,27 +15,28 @@ export default class SwiperSlide extends Vue {
   slideClass: string = 'swiper-slide';
 
   // methods
-  update() {
+  swiperUpdate() {
     if (this.$parent && this.$parent.swiper) {
-      this.$parent.swiperUpdate()
+      this.$parent.swiperUpdate();
     }
   }
 
+  // life cycle hooks
   ready() {
-    this.swiperUpdate()
-  };
+    this.swiperUpdate();
+  }
   mounted() {
-    this.swiperUpdate()
+    this.swiperUpdate();
     if (this.$parent && this.$parent.options && this.$parent.options.slideClass) {
       this.slideClass = this.$parent.options.slideClass
     }
-  };
+  }
   updated() {
-    this.swiperUpdate()
-  };
+    this.swiperUpdate();
+  }
   attached() {
-    this.swiperUpdate()
-  };
+    this.swiperUpdate();
+  }
   
 }
 </script>
