@@ -27,8 +27,8 @@ export default class SwiperSlide extends Vue {
   }
   mounted() {
     this.swiperUpdate();
-    if (this.$parent && this.$parent.options && this.$parent.options.slideClass) {
-      this.slideClass = this.$parent.options.slideClass
+    if (this.$parent && this.$parent.swiperOptions && this.$parent.swiperOptions.slideClass) {
+      this.slideClass = this.$parent.swiperOptions.slideClass
     }
   }
   updated() {

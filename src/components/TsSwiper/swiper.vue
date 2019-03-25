@@ -92,7 +92,7 @@ interface localOptions extends SwiperOptions {
 })
 export default class swiper extends Vue {
   // Props
-  @Prop({}) options!: localOptions;
+  @Prop({}) swiperOptions!: localOptions;
   @Prop({}) globalOptions!: SwiperOptions;
 
   // data
@@ -112,7 +112,7 @@ export default class swiper extends Vue {
     }
   }
   mountInstance() {
-    const swiperOptions = Object.assign({}, this.globalOptions, this.options)
+    const swiperOptions = Object.assign({}, this.globalOptions, this.swiperOptions)
     this.swiper = new Swiper(<SelectableElement>this.$el, swiperOptions)
     this.bindEvents()
     this.$emit('ready', this.swiper)
@@ -139,9 +139,9 @@ export default class swiper extends Vue {
       let setClassName = false
       for(const className in this.classes) {
         if (this.classes.hasOwnProperty(className)) {
-          if (this.options && this.options[className]) {
+          if (this.swiperOptions && this.swiperOptions[className]) {
             setClassName = true
-            this.classes[className] = this.options[className]
+            this.classes[className] = this.swiperOptions[className]
           }
         }
       }

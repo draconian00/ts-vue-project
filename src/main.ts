@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store/index';
 
+// swiper
 import VueTsSwiper from '@/components/TsSwiper/index';
 import 'swiper/dist/css/swiper.css';
 
@@ -19,8 +20,9 @@ declare module 'vue/types/vue' {
     $calendar: Calendar;
     $selectedDay: Day;
     swiper: _Swiper;
-    options: SwiperOptions;
+    swiperOptions: SwiperOptions;
     swiperUpdate(): void;
+    getContext(): void;
   }
 }
 
