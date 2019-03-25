@@ -139,12 +139,10 @@ export default class swiper extends Vue {
       let setClassName = false
       for(const className in this.classes) {
         if (this.classes.hasOwnProperty(className)) {
-          // console.log(this.options[className]);
-          // if (this.options[className]) {
-            
-          //   setClassName = true
-          //   this.classes[className] = this.options[className]
-          // }
+          if (this.options && this.options[className]) {
+            setClassName = true
+            this.classes[className] = this.options[className]
+          }
         }
       }
       setClassName ? this.$nextTick(this.mountInstance) : this.mountInstance()
