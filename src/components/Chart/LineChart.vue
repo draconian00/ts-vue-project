@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import BaseChart from './BaseChart.vue';
 import { ChartType } from 'chart.js';
 
@@ -7,20 +7,19 @@ import { ChartType } from 'chart.js';
   name: 'line-chart',
 })
 export default class LineChart extends BaseChart {
-  @Prop() width!: number;
-  @Prop() height!: number;
+  @Prop() public width!: number;
+  @Prop() public height!: number;
 
-  chartId: string = 'line-chart';
-  chartType: ChartType = 'line';
-  styles: object = {
+  public chartId: string = 'line-chart';
+  public chartType: ChartType = 'line';
+  public styles: object = {
     width: this.width ? `${this.width}px` : 'auto',
     height: this.height ? `${this.height}px` : 'auto',
-  }
+  };
 }
 </script>
 
 <style lang="scss" scoped>
-#line-chart {
-  // width: 300px !important;
-}
+// #line-chart {
+// }
 </style>

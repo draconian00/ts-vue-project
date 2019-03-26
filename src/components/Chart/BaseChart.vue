@@ -1,5 +1,5 @@
 <script lang="ts">
-import Chart,{ 
+import Chart, {
   ChartOptions,
   ChartData,
   ChartType,
@@ -11,25 +11,25 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
   name: 'generate-chart',
 })
 export default class GenerateChart extends Vue {
-  @Prop() width!: number;
-  @Prop() height!: number;
-  @Prop() cssClasses!: string;
-  @Prop() plugins!: PluginServiceRegistrationOptions[];
+  @Prop() public width!: number;
+  @Prop() public height!: number;
+  @Prop() public cssClasses!: string;
+  @Prop() public plugins!: PluginServiceRegistrationOptions[];
 
-  @Prop() chartdata!: ChartData;
-  @Prop() options!: ChartOptions;
+  @Prop() public chartdata!: ChartData;
+  @Prop() public options!: ChartOptions;
 
-  _chart!: Chart;
-  _plugins: PluginServiceRegistrationOptions[] = this.plugins;
-  chartType: ChartType = 'bar';
-  chartId: string = 'bar-chart';
-  styles: object = {};
+  public _chart!: Chart;
+  public _plugins: PluginServiceRegistrationOptions[] = this.plugins;
+  public chartType: ChartType = 'bar';
+  public chartId: string = 'bar-chart';
+  public styles: object = {};
 
-  $refs!: {
+  public $refs!: {
     canvas: HTMLCanvasElement;
-  }
+  };
 
-  render(createElement:any) {
+  public render(createElement: any) {
     return createElement('div', {
       style: this.styles,
       class: this.cssClasses,
@@ -45,42 +45,42 @@ export default class GenerateChart extends Vue {
     ]);
   }
 
-  generateLegend() {
+  public generateLegend() {
     if (this.$data._chart) {
       return this.$data._chart.generateLegend();
     }
   }
 
-  renderChart(data: ChartData, options: ChartOptions) {
-    if (this.$data._chart) this.$data._chart.destroy();
+  public renderChart(data: ChartData, options: ChartOptions) {
+    if (this.$data._chart) { this.$data._chart.destroy(); }
     const canvasContext = this.$refs.canvas.getContext('2d');
     if (canvasContext !== null) {
       this.$data._chart = new Chart(
         canvasContext, {
           type: this.chartType,
-          data: data,
-          options: options,
+          data,
+          options,
           plugins: this.plugins,
-        }
+        },
       );
     }
   }
 
-  addPlugin(plugin: PluginServiceRegistrationOptions) {
+  public addPlugin(plugin: PluginServiceRegistrationOptions) {
     this.$data._plugins.push(plugin);
   }
 
   // life cycle hooks
-  beforeDestroy() {
+  private beforeDestroy() {
     if (this.$data._chart) {
       this.$data._chart.destroy();
     }
   }
 
-  mounted() {
+  private mounted() {
     this.renderChart(this.chartdata, this.options);
   }
-  updated() {
+  private updated() {
     this.renderChart(this.chartdata, this.options);
   }
 }

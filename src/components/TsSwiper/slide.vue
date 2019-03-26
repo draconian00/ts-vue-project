@@ -12,31 +12,30 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 })
 export default class SwiperSlide extends Vue {
   // data
-  slideClass: string = 'swiper-slide';
+  public slideClass: string = 'swiper-slide';
 
   // methods
-  swiperUpdate() {
+  public swiperUpdate() {
     if (this.$parent && this.$parent.swiper) {
       this.$parent.swiperUpdate();
     }
   }
 
   // life cycle hooks
-  ready() {
+  private ready() {
     this.swiperUpdate();
   }
-  mounted() {
+  private mounted() {
     this.swiperUpdate();
     if (this.$parent && this.$parent.swiperOptions && this.$parent.swiperOptions.slideClass) {
-      this.slideClass = this.$parent.swiperOptions.slideClass
+      this.slideClass = this.$parent.swiperOptions.slideClass;
     }
   }
-  updated() {
+  private updated() {
     this.swiperUpdate();
   }
-  attached() {
+  private attached() {
     this.swiperUpdate();
   }
-  
 }
 </script>

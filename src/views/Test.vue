@@ -25,7 +25,7 @@ import { ChartData } from 'chart.js';
 })
 export default class TestView extends Vue {
 
-  testData: ChartData = {
+  private testData: ChartData = {
     labels: ['6월', '7월', '8월', '9월', '10월'],   // Array<string | string[]>;
     datasets: [
       {
@@ -34,10 +34,9 @@ export default class TestView extends Vue {
         label: 'label',
         data: [1200000, 1500000, 1300000, 1400000, 1700000],
         lineTension: 0,
-      }
+      },
     ],
-  }
-
+  };
 }
 </script>
 

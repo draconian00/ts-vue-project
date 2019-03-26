@@ -13,10 +13,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import _Swiper,{ SelectableElement, SwiperEvent, SwiperOptions } from 'swiper';
+import _Swiper, { SelectableElement, SwiperEvent, SwiperOptions } from 'swiper';
 
 // require sources
-const Swiper = _Swiper;
+// const Swiper = _Swiper;
 
 // as of swiper 4.0.7
 // http://idangero.us/swiper/api/#events
@@ -46,8 +46,8 @@ const DEFAULT_EVENTS: SwiperEvent[] = [
   'fromEdge',
   'setTranslate',
   'setTransition',
-  'resize'
-]
+  'resize',
+];
 
   // pollfill
   // if (typeof Object.assign != 'function') {
@@ -75,89 +75,87 @@ const DEFAULT_EVENTS: SwiperEvent[] = [
   // }
 
 
-interface classesOptions extends SwiperOptions {
-  [key:string]: any;
+interface ClassesOptions extends SwiperOptions {
+  [key: string]: any;
 }
 
-interface localOptions extends SwiperOptions {
-  [key:string]: any;
+interface LocalOptions extends SwiperOptions {
+  [key: string]: any;
 }
-
-  
 
 // export
 @Component({
   name: 'swiper',
   props: {},
 })
-export default class swiper extends Vue {
+export default class Swiper extends Vue {
   // Props
-  @Prop({}) swiperOptions!: localOptions;
-  @Prop({}) globalOptions!: SwiperOptions;
+  @Prop({}) public swiperOptions!: LocalOptions;
+  @Prop({}) public globalOptions!: SwiperOptions;
 
   // data
-  swiper!:_Swiper;
-  classes: classesOptions = {
+  public swiper!: _Swiper;
+  public classes: ClassesOptions = {
     wrapperClass: 'swiper-wrapper',
   };
 
 
   // methods
-  swiperUpdate() {
+  public swiperUpdate() {
     if (this.swiper) {
-      this.swiper.update && this.swiper.update()
-      this.swiper.navigation && this.swiper.navigation.update()
-      this.swiper.pagination && this.swiper.pagination.render()
-      this.swiper.pagination && this.swiper.pagination.update()
+      this.swiper.update && this.swiper.update();
+      this.swiper.navigation && this.swiper.navigation.update();
+      this.swiper.pagination && this.swiper.pagination.render();
+      this.swiper.pagination && this.swiper.pagination.update();
     }
   }
-  mountInstance() {
-    const swiperOptions = Object.assign({}, this.globalOptions, this.swiperOptions)
-    this.swiper = new Swiper(<SelectableElement>this.$el, swiperOptions)
-    this.bindEvents()
-    this.$emit('ready', this.swiper)
+  protected mountInstance() {
+    const swiperOptions = Object.assign({}, this.globalOptions, this.swiperOptions);
+    this.swiper = new _Swiper(this.$el as SelectableElement, swiperOptions);
+    this.bindEvents();
+    this.$emit('ready', this.swiper);
   }
-  bindEvents() {
-    const vm = this
-    DEFAULT_EVENTS.forEach(eventName => {
-      this.swiper.on(eventName, function() {
-        vm.$emit(eventName, ...arguments)
-        vm.$emit(eventName.replace(/([A-Z])/g, '-$1').toLowerCase(), ...arguments)
-      })
+  protected bindEvents() {
+    const vm = this;
+    DEFAULT_EVENTS.forEach((eventName) => {
+      this.swiper.on(eventName, () => {
+        vm.$emit(eventName, ...arguments);
+        vm.$emit(eventName.replace(/([A-Z])/g, '-$1').toLowerCase(), ...arguments);
+      });
     });
   }
-  
 
   // life cycle hooks
   private ready() {
     if (!this.swiper) {
-      this.mountInstance()
+      this.mountInstance();
     }
   }
   private mounted() {
     if (!this.swiper) {
-      let setClassName = false
-      for(const className in this.classes) {
+      let setClassName = false;
+      for (const className in this.classes) {
         if (this.classes.hasOwnProperty(className)) {
           if (this.swiperOptions && this.swiperOptions[className]) {
-            setClassName = true
-            this.classes[className] = this.swiperOptions[className]
+            setClassName = true;
+            this.classes[className] = this.swiperOptions[className];
           }
         }
       }
-      setClassName ? this.$nextTick(this.mountInstance) : this.mountInstance()
+      setClassName ? this.$nextTick(this.mountInstance) : this.mountInstance();
     }
   }
   private activated() {
-    this.swiperUpdate()
+    this.swiperUpdate();
   }
   private updated() {
-    this.swiperUpdate()
+    this.swiperUpdate();
   }
   private beforeDestroy() {
     this.$nextTick(function() {
       if (this.swiper) {
-        this.swiper.destroy && this.swiper.destroy(true, true);
+        // this.swiper.destroy && this.swiper.destroy(true, true);
+        this.swiper.destroy(true, true);
         delete this.swiper;
       }
     });
